@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Summary Actions</h2>
+
+<button type="button" onclick="loadCustomer()">Request Customer Data</button>
+<br>
+<br>
+
+<button type="button" onclick="loadDoc()">Demo Change Text</button>
+
+<p id="demo"></p>
+
+<script>
+function loadCustomer() {
+  var xhttp = new XMLHttpRequest();
+  <!--var data = '{"firstName":"Eric","lastName":"Loughlin","dateOfBirth":"1964-07-12","totalAssets":14001.0}'-->
+  var data = '{"firstName":"Kimmee","lastName":"Brunei","dateOfBirth":"1988-12-16","totalAssets":14001.0}'
+  
+ <!-- below works for the simple case of user Name method --> 
+ <!-- var data = '{"first":"John", "last": "Wollensky"}' -->
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open('POST', 'http://localhost:8080/newCustomer', true);
+  xhttp.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+ <!-- xhttp.open("POST", "{"firstName":"John", "lastName":"Wollensky",dateOfBirth:"1988-03-03",assets:160000}", true); -->
+  xhttp.send(data);
+}
+</script>
+
+<p id="changeroo"></p>
+
+<script>
+function loadDoc() {
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	      document.getElementById("changeroo").innerHTML = this.responseText;
+	    }
+	  };
+	  xhttp.open("GET", "ajax_info.txt", true);<!-- asynchronous request, last param is true-->
+	  xhttp.send();
+}
+</script>
+
+</body>
+</html>    			
